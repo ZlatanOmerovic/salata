@@ -1,0 +1,3 @@
+#cookie "session" "abc123" httponly secure
+#cookie "lang" "en"
+<p>Cookies set</p>

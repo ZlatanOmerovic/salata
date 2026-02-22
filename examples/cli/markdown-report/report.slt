@@ -1,0 +1,43 @@
+<python>
+# Compute some statistics
+projects = [
+    {"name": "Alpha", "status": "Complete", "tasks": 24, "done": 24},
+    {"name": "Beta", "status": "In Progress", "tasks": 18, "done": 12},
+    {"name": "Gamma", "status": "In Progress", "tasks": 30, "done": 21},
+    {"name": "Delta", "status": "Planning", "tasks": 15, "done": 0},
+]
+total_tasks = sum(p["tasks"] for p in projects)
+total_done = sum(p["done"] for p in projects)
+overall_pct = round(total_done / total_tasks * 100, 1)
+
+#set("projects", projects)
+#set("total_tasks", total_tasks)
+#set("total_done", total_done)
+#set("overall_pct", overall_pct)
+</python>
+<ruby>
+projects = #get("projects")
+total_tasks = #get("total_tasks")
+total_done = #get("total_done")
+overall_pct = #get("overall_pct")
+
+puts "# Project Status Report"
+puts ""
+puts "**Overall Progress:** #{total_done}/#{total_tasks} tasks (#{overall_pct}%)"
+puts ""
+puts "| Project | Status      | Progress        |"
+puts "|---------|-------------|-----------------|"
+projects.each do |p|
+  pct = p["tasks"] > 0 ? (p["done"].to_f / p["tasks"] * 100).round(0) : 0
+  bar = "#" * (pct / 10) + "." * (10 - pct / 10)
+  puts "| #{p['name'].ljust(7)} | #{p['status'].ljust(11)} | #{p['done']}/#{p['tasks'].to_s.ljust(2)} [#{bar}] |"
+end
+puts ""
+</ruby>
+<shell>
+echo "## Build Info"
+echo ""
+echo "- **Generated:** $(date '+%Y-%m-%d %H:%M:%S')"
+echo "- **Host:** $(hostname)"
+echo "- **Platform:** $(uname -s) $(uname -m)"
+</shell>

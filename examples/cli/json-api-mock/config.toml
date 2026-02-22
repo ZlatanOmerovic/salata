@@ -1,0 +1,32 @@
+[salata]
+display_errors = true
+default_content_type = "application/json; charset=utf-8"
+encoding = "utf-8"
+
+[logging]
+directory = "./logs"
+
+[runtimes.python]
+enabled = true
+path = "/usr/bin/python3"
+shared_scope = true
+
+[runtimes.ruby]
+enabled = false
+
+[runtimes.javascript]
+enabled = true
+path = "/usr/bin/node"
+shared_scope = true
+
+[runtimes.typescript]
+enabled = false
+
+[runtimes.php]
+enabled = false
+cli_path = "/usr/bin/php"
+cgi_path = "/usr/bin/php-cgi"
+
+[runtimes.shell]
+enabled = false
+path = "/bin/bash"

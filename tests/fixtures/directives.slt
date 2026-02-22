@@ -1,0 +1,10 @@
+#status 201
+#content-type text/html
+#header "X-Custom" "salata-test"
+<html>
+<body>
+<python>
+print("<p>directive test</p>")
+</python>
+</body>
+</html>

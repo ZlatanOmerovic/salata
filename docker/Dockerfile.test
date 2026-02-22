@@ -1,0 +1,27 @@
+# Salata — E2E test runner
+#
+# Extends the main Dockerfile, copies test fixtures and E2E test scripts,
+# then runs the full E2E test suite.
+
+FROM salata:latest AS test
+
+# Install test dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    procps \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy test fixtures
+COPY tests/fixtures/ /srv/salata/tests/fixtures/
+
+# Copy E2E test scripts
+COPY tests/e2e/ /srv/salata/tests/e2e/
+
+# Copy test-specific config
+COPY tests/e2e/test_config.toml /srv/salata/tests/e2e/test_config.toml
+
+# Make test runner executable
+RUN chmod +x /srv/salata/tests/e2e/run_tests.sh
+
+WORKDIR /srv/salata
+
+ENTRYPOINT ["/srv/salata/tests/e2e/run_tests.sh"]

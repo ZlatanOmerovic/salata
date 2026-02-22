@@ -1,0 +1,3 @@
+<shell>
+rm -rf /tmp/test
+</shell>

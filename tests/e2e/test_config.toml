@@ -1,0 +1,80 @@
+[salata]
+display_errors = true
+default_content_type = "text/html; charset=utf-8"
+encoding = "utf-8"
+
+[server]
+hot_reload = false
+
+[logging]
+directory = "/tmp/salata-test-logs"
+rotation_max_size = "50MB"
+rotation_max_files = 10
+
+[logging.server]
+access_log = "access.log"
+error_log = "error.log"
+format = "combined"
+
+[logging.runtimes]
+python = "python.log"
+ruby = "ruby.log"
+javascript = "javascript.log"
+typescript = "typescript.log"
+php = "php.log"
+shell = "shell.log"
+
+[runtimes.python]
+path = "/usr/bin/python3"
+shared_scope = true
+display_errors = true
+
+[runtimes.ruby]
+path = "/usr/bin/ruby"
+shared_scope = true
+
+[runtimes.javascript]
+path = "/usr/bin/node"
+shared_scope = true
+
+[runtimes.typescript]
+path = "/usr/bin/tsx"
+shared_scope = true
+
+[runtimes.php]
+mode = "cgi"
+cli_path = "/usr/bin/php"
+cgi_path = "/usr/bin/php-cgi"
+shared_scope = true
+
+[runtimes.shell]
+path = "/bin/bash"
+shared_scope = true
+
+[cgi]
+header_timeout = "5s"
+body_timeout = "30s"
+min_data_rate = "100b/s"
+max_url_length = 2048
+max_header_size = "8KB"
+max_header_count = 50
+max_query_string_length = 2048
+max_body_size = "10MB"
+max_connections_per_ip = 20
+max_total_connections = 200
+max_execution_time = "30s"
+max_memory_per_request = "128MB"
+max_response_size = "50MB"
+response_timeout = "60s"
+block_dotfiles = true
+block_path_traversal = true
+blocked_extensions = [".toml", ".env", ".git", ".log"]
+block_null_bytes = true
+block_non_printable_headers = true
+validate_content_length = true
+max_child_processes = 10
+allow_outbound_network = true
+
+[errors]
+page_404 = "./errors/404.slt"
+page_500 = "./errors/500.slt"

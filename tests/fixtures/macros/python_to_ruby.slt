@@ -1,0 +1,9 @@
+<python>
+#set("greeting", "Hello from Python")
+#set("number", 42)
+</python>
+<ruby>
+greeting = #get("greeting")
+number = #get("number")
+puts "#{greeting}:#{number}"
+</ruby>

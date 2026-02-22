@@ -1,0 +1,4 @@
+<typescript>
+const greeting: string = "Hello from TypeScript!";
+println(greeting);
+</typescript>

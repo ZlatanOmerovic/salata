@@ -1,0 +1,3 @@
+#header "X-Salata-Test" "hello"
+#header "X-Request-Id" "abc123"
+<p>Headers set</p>

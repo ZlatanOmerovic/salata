@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello — Salata</title>
+</head>
+<body>
+    <h1>Hello from Salata!</h1>
+    <p>The current time is:</p>
+    <python>
+from datetime import datetime
+print(f"<strong>{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</strong>")
+    </python>
+    <p>This page was generated server-side by Salata.</p>
+</body>
+</html>

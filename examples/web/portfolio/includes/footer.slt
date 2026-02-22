@@ -1,0 +1,9 @@
+    </main>
+    <footer>
+        <python>
+from datetime import datetime
+print(f"<p>&copy; {datetime.now().year} My Portfolio. Built with Salata.</p>")
+        </python>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,21 @@
+# Salata — Docker Compose orchestration
+#
+# Usage:
+#   docker compose -f docker/docker-compose.yml up --build test
+
+services:
+  salata:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: salata:latest
+    ports:
+      - "3000:3000"
+
+  test:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.test
+    image: salata-test:latest
+    depends_on:
+      - salata

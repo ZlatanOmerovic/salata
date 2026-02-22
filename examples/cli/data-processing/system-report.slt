@@ -1,0 +1,13 @@
+<shell>
+echo "=== System Report ==="
+echo ""
+echo "Hostname: $(hostname)"
+echo "Kernel:   $(uname -sr)"
+echo "Arch:     $(uname -m)"
+echo "Date:     $(date '+%Y-%m-%d %H:%M:%S')"
+echo ""
+echo "--- Disk Usage ---"
+df -h / | tail -1 | awk '{printf "  Root: %s used of %s (%s)\n", $3, $2, $5}'
+echo ""
+echo "=== End Report ==="
+</shell>

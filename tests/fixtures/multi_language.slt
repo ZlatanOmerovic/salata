@@ -1,0 +1,17 @@
+<h1>Multi-Language Page</h1>
+<python>
+print("<p>From Python</p>")
+</python>
+<hr>
+<ruby>
+puts "<p>From Ruby</p>"
+</ruby>
+<hr>
+<javascript>
+print("<p>From JavaScript</p>");
+</javascript>
+<hr>
+<shell>
+echo "<p>From Shell</p>"
+</shell>
+<footer>End</footer>

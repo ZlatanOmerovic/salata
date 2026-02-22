@@ -1,0 +1,21 @@
+[package]
+name = "salata-server"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "salata-server"
+path = "src/main.rs"
+
+[dependencies]
+salata-core = { path = "../salata-core" }
+salata-cgi = { path = "../salata-cgi" }
+actix-web = "4"
+actix-rt = "2"
+tokio = { version = "1", features = ["full"] }
+mime_guess = "2"
+notify = "7"
+
+[dev-dependencies]
+reqwest = { version = "0.12", features = ["blocking"] }
+tempfile = "3"

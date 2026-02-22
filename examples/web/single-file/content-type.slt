@@ -1,0 +1,11 @@
+#content-type application/json
+<python>
+import json
+
+data = {
+    "message": "This page returns JSON, not HTML",
+    "content_type": "application/json",
+    "directive": "#content-type application/json"
+}
+print(json.dumps(data, indent=2))
+</python>

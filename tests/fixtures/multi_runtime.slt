@@ -1,0 +1,15 @@
+<python>
+print("PYTHON_OK")
+</python>
+<ruby>
+puts "RUBY_OK"
+</ruby>
+<javascript>
+console.log("JS_OK")
+</javascript>
+<shell>
+echo "SHELL_OK"
+</shell>
+<php>
+echo "PHP_OK";
+</php>

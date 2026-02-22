@@ -1,0 +1,25 @@
+# Salata Interactive Playground
+# Author: Zlatan Omerović
+#
+# The host source tree is mounted at /opt/salata so that code changes
+# are visible immediately — run `rebuild-salata` inside the container
+# to recompile. A named volume keeps the Linux build cache separate
+# from the host's (macOS/Windows) target/ directory.
+
+services:
+  playground:
+    image: salata-playground
+    build:
+      context: ..
+      dockerfile: playground/Dockerfile.playground
+    stdin_open: true
+    tty: true
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./workspace:/home/playground/workspace
+      - ..:/opt/salata
+      - cargo-target:/opt/salata/target
+
+volumes:
+  cargo-target:

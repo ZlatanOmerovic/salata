@@ -1,0 +1,204 @@
+# Salata Interactive Playground
+# All runtimes, editors, and pre-built salata binaries in one container.
+# Author: Zlatan Omerović
+
+FROM ubuntu:latest
+
+LABEL maintainer="Zlatan Omerović"
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+
+# ---------------------------------------------------------------------------
+# System packages: build tools, editors, shells
+# ---------------------------------------------------------------------------
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    wget \
+    git \
+    ca-certificates \
+    gnupg \
+    build-essential \
+    pkg-config \
+    libssl-dev \
+    # Editors
+    nano \
+    vim \
+    neovim \
+    emacs-nox \
+    # Shells
+    bash \
+    dash \
+    zsh \
+    fish \
+    # Runtimes
+    python3 \
+    python3-pip \
+    ruby \
+    php \
+    php-cgi \
+    # Tools
+    bat \
+    && rm -rf /var/lib/apt/lists/* \
+    && ln -s /usr/bin/batcat /usr/local/bin/bat
+
+# ---------------------------------------------------------------------------
+# Node.js LTS via nodesource
+# ---------------------------------------------------------------------------
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
+    && apt-get install -y --no-install-recommends nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
+# ---------------------------------------------------------------------------
+# TypeScript tooling
+# ---------------------------------------------------------------------------
+RUN npm install -g typescript ts-node tsx
+
+# ---------------------------------------------------------------------------
+# Rust (stable, minimal profile)
+# ---------------------------------------------------------------------------
+ENV RUSTUP_HOME=/usr/local/rustup
+ENV CARGO_HOME=/usr/local/cargo
+ENV PATH="/usr/local/cargo/bin:${PATH}"
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+    | sh -s -- -y --profile minimal --default-toolchain stable \
+    && rustc --version
+
+# ---------------------------------------------------------------------------
+# Starship prompt
+# ---------------------------------------------------------------------------
+RUN curl -sS https://starship.rs/install.sh | sh -s -- -y
+
+# ---------------------------------------------------------------------------
+# Copy salata source and build
+# ---------------------------------------------------------------------------
+COPY . /opt/salata
+WORKDIR /opt/salata
+
+RUN cargo build --release \
+    && cp target/release/salata         /usr/local/bin/ \
+    && cp target/release/salata-cgi     /usr/local/bin/ \
+    && cp target/release/salata-fastcgi /usr/local/bin/ \
+    && cp target/release/salata-server  /usr/local/bin/
+
+# ---------------------------------------------------------------------------
+# rebuild-salata helper script
+# ---------------------------------------------------------------------------
+RUN cat > /usr/local/bin/rebuild-salata <<'SCRIPT'
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Rebuilding salata from /opt/salata ..."
+echo ""
+
+cd /opt/salata
+cargo build --release
+
+cp target/release/salata         /usr/local/bin/
+cp target/release/salata-cgi     /usr/local/bin/
+cp target/release/salata-fastcgi /usr/local/bin/
+cp target/release/salata-server  /usr/local/bin/
+
+echo ""
+echo "Done! All 4 binaries installed:"
+salata --version
+echo "  salata-cgi, salata-fastcgi, salata-server"
+SCRIPT
+RUN chmod +x /usr/local/bin/rebuild-salata
+
+# ---------------------------------------------------------------------------
+# Set up playground home
+# ---------------------------------------------------------------------------
+RUN mkdir -p /home/playground/workspace
+
+WORKDIR /home/playground
+
+# Generate starter project with salata init.
+RUN salata init --path /home/playground \
+    && ln -s /home/playground/config.toml /usr/local/bin/config.toml
+
+# Copy examples into the playground
+COPY examples/ /home/playground/examples/
+
+# ---------------------------------------------------------------------------
+# Welcome banner & prompt (.bashrc + .bash_profile)
+# ---------------------------------------------------------------------------
+# Login shells (bash --login) source $HOME/.bash_profile, not .bashrc.
+# HOME is set to /home/playground, so files go there.
+RUN echo '[ -f /home/playground/.bashrc ] && . /home/playground/.bashrc' > /home/playground/.bash_profile
+
+RUN cat > /home/playground/.bashrc <<'BASHRC'
+# Salata Playground — interactive environment
+
+eval "$(starship init bash)"
+
+# Versions
+_salata_ver=$(salata --version 2>/dev/null || echo "salata unknown")
+_python_ver=$(python3 --version 2>/dev/null | head -1)
+_ruby_ver=$(ruby --version 2>/dev/null | head -1)
+_node_ver=$(node --version 2>/dev/null)
+_ts_ver=$(ts-node --version 2>/dev/null | head -1)
+_tsx_ver=$(tsx --version 2>/dev/null | head -1)
+_php_ver=$(php --version 2>/dev/null | head -1)
+_bash_ver=$(bash --version 2>/dev/null | head -1)
+
+cat <<EOF
+
+  ____    _    _        _  _____  _
+ / ___|  / \\  | |      / \\|_   _|/ \\
+ \\___ \\ / _ \\ | |     / _ \\ | | / _ \\
+  ___) / ___ \\| |___ / ___ \\| |/ ___ \\
+ |____/_/   \\_\\_____/_/   \\_\\_/_/   \\_\\
+
+ ${_salata_ver} — Polyglot Text Templating Engine
+
+ Runtimes:
+   Python ...... ${_python_ver}
+   Ruby ........ ${_ruby_ver}
+   Node.js ..... ${_node_ver}
+   TypeScript .. ts-node ${_ts_ver}, tsx ${_tsx_ver}
+   PHP ......... ${_php_ver}
+   Bash ........ ${_bash_ver}
+
+ Quick start:
+   salata index.slt              Process the starter file
+   salata init --path mysite     Scaffold a new project
+   salata-server . --port 3000   Start dev server (localhost:3000)
+   cat index.slt                 See the starter file
+
+ Examples (in ~/examples/):
+   examples/cli/hello-world/     One file per runtime
+   examples/cli/cross-runtime-pipeline/  #set/#get across runtimes
+   examples/cli/scope-demo/      Shared vs isolated scope
+   examples/web/portfolio/       Multi-page site with #include
+   examples/web/dashboard/       4 runtimes on one page
+   examples/web/blog/            File-based blog
+   ... and 9 more — run 'ls examples/cli examples/web' to see all
+
+   Try:  salata --config examples/cli/hello-world/config.toml \\
+                examples/cli/hello-world/python.slt
+
+ Dev workflow:
+   cd /opt/salata                Source code (live mount from host)
+   rebuild-salata                Recompile & install all binaries
+
+ .slt syntax — all 6 runtimes:
+   <python>print('hello')</python>
+   <ruby>puts 'hello'</ruby>
+   <javascript>println('hello');</javascript>
+   <typescript>println('hello');</typescript>
+   <php>echo 'hello';</php>
+   <shell>echo hello</shell>
+
+ Type 'cat index.slt' to see the starter file.
+
+EOF
+
+cd /home/playground
+BASHRC
+
+ENV HOME=/home/playground
+WORKDIR /home/playground
+CMD ["bash", "--login"]

@@ -1,0 +1,6 @@
+<ruby>
+$counter = 10
+</ruby>
+<ruby>
+puts $counter + 5
+</ruby>

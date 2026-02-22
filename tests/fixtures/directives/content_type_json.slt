@@ -1,0 +1,5 @@
+#content-type application/json
+<python>
+import json
+print(json.dumps({"status": "ok", "count": 42}))
+</python>

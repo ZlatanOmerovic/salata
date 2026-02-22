@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard — Salata</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>System Dashboard</h1>
+
+    <div class="grid">
+        <div class="card">
+            <h2>Metrics</h2>
+            <python>
+import random
+random.seed(42)
+metrics = {
+    "requests_today": 12847,
+    "avg_response_ms": 45,
+    "error_rate": 0.3,
+    "uptime_pct": 99.97,
+}
+#set("metrics", metrics)
+
+for key, val in metrics.items():
+    label = key.replace("_", " ").title()
+    print(f"<div class='metric'><span class='label'>{label}</span><span class='value'>{val}</span></div>")
+            </python>
+        </div>
+
+        <div class="card">
+            <h2>Top Pages</h2>
+            <ruby>
+pages = [
+    {name: "/index", hits: 4521},
+    {name: "/api/users", hits: 3204},
+    {name: "/dashboard", hits: 2187},
+    {name: "/about", hits: 891},
+]
+#set("pages", pages)
+
+puts "<table>"
+puts "<tr><th>Page</th><th>Hits</th></tr>"
+pages.each do |p|
+    puts "<tr><td>#{p[:name]}</td><td>#{p[:hits]}</td></tr>"
+end
+puts "</table>"
+            </ruby>
+        </div>
+
+        <div class="card">
+            <h2>Server Info</h2>
+            <shell>
+echo "<dl>"
+echo "  <dt>Hostname</dt><dd>$(hostname)</dd>"
+echo "  <dt>Kernel</dt><dd>$(uname -sr)</dd>"
+echo "  <dt>Architecture</dt><dd>$(uname -m)</dd>"
+echo "  <dt>Date</dt><dd>$(date '+%Y-%m-%d %H:%M:%S')</dd>"
+echo "</dl>"
+            </shell>
+        </div>
+
+        <div class="card">
+            <h2>Activity Sparkline</h2>
+            <javascript>
+const metrics = #get("metrics");
+const pages = #get("pages");
+
+// Generate a simple SVG bar chart of page hits
+const maxHits = Math.max(...pages.map(p => p.hits));
+const barWidth = 60;
+const chartHeight = 80;
+
+println('<svg width="280" height="100" style="display:block;margin:10px auto">');
+pages.forEach((p, i) => {
+    const h = (p.hits / maxHits) * chartHeight;
+    const x = i * (barWidth + 10) + 5;
+    const y = chartHeight - h + 10;
+    println(`  <rect x="${x}" y="${y}" width="${barWidth}" height="${h}" fill="#0066cc" rx="3"/>`);
+    println(`  <text x="${x + barWidth/2}" y="98" text-anchor="middle" font-size="10">${p.name}</text>`);
+});
+println('</svg>');
+
+println(`<p>Total requests today: <strong>${metrics.requests_today.toLocaleString()}</strong></p>`);
+            </javascript>
+        </div>
+    </div>
+</body>
+</html>

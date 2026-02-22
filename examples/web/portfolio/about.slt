@@ -1,0 +1,11 @@
+#include "includes/header.slt"
+        <h1>About Me</h1>
+        <ruby>
+skills = ["Rust", "Python", "Ruby", "JavaScript", "TypeScript"]
+puts "<p>I'm a developer who loves building things.</p>"
+puts "<h2>Skills</h2>"
+puts "<ul>"
+skills.each { |s| puts "  <li>#{s}</li>" }
+puts "</ul>"
+        </ruby>
+#include "includes/footer.slt"

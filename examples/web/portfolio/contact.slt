@@ -1,0 +1,15 @@
+#include "includes/header.slt"
+        <h1>Contact</h1>
+        <p>Get in touch:</p>
+        <python>
+contacts = [
+    ("Email", "hello@example.com"),
+    ("GitHub", "github.com/example"),
+]
+
+print('<ul>')
+for label, value in contacts:
+    print(f'  <li><strong>{label}:</strong> {value}</li>')
+print('</ul>')
+        </python>
+#include "includes/footer.slt"

@@ -1,0 +1,13 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/salata-core",
+    "crates/salata-cli",
+    "crates/salata-cgi",
+    "crates/salata-fastcgi",
+    "crates/salata-server",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"

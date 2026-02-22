@@ -1,0 +1,14 @@
+#status 404
+<!DOCTYPE html>
+<html>
+<head>
+    <title>404 — Not Found</title>
+</head>
+<body>
+    <h1>404 — Page Not Found</h1>
+    <python>
+print("<p>This page intentionally returns a 404 status code.</p>")
+print("<p>The <code>#status 404</code> directive sets the HTTP response status.</p>")
+    </python>
+</body>
+</html>

@@ -1,0 +1,5 @@
+<javascript>
+print("no-newline")
+println("with-newline")
+print("A", "B", "C")
+</javascript>

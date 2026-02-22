@@ -1,0 +1,10 @@
+<python scope="isolated">
+x = 100
+print(x)
+</python>
+<python scope="isolated">
+try:
+    print(x)
+except NameError:
+    print("undefined")
+</python>

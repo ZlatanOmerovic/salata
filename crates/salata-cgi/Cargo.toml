@@ -1,0 +1,15 @@
+[package]
+name = "salata-cgi"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+name = "salata_cgi"
+path = "src/lib.rs"
+
+[[bin]]
+name = "salata-cgi"
+path = "src/main.rs"
+
+[dependencies]
+salata-core = { path = "../salata-core" }

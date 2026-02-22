@@ -1,0 +1,12 @@
+<python>
+users = [{"name": "Alice"}, {"name": "Bob"}]
+#set("users", users)
+#set("count", len(users))
+print("set by python")
+</python>
+<hr>
+<javascript>
+const users = #get("users");
+const count = #get("count");
+print("Found " + count + " users: " + users[0].name);
+</javascript>

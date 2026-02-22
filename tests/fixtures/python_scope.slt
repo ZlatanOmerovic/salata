@@ -1,0 +1,7 @@
+<python>
+x = 42
+</python>
+<p>between</p>
+<python>
+print(x + 8)
+</python>

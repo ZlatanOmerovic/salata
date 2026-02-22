@@ -1,0 +1,21 @@
+#header "X-Powered-By" "Salata"
+#header "X-Example" "headers-demo"
+#cookie "visited" "true" httponly
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Headers &amp; Cookies — Salata</title>
+</head>
+<body>
+    <h1>Custom Headers &amp; Cookies</h1>
+    <p>This page sets the following:</p>
+    <ul>
+        <li><code>X-Powered-By: Salata</code> (custom header)</li>
+        <li><code>X-Example: headers-demo</code> (custom header)</li>
+        <li><code>visited=true</code> (httponly cookie)</li>
+    </ul>
+    <python>
+print("<p>Check the response headers in your browser's developer tools!</p>")
+    </python>
+</body>
+</html>

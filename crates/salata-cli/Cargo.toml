@@ -1,0 +1,14 @@
+[package]
+name = "salata-cli"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "salata"
+path = "src/main.rs"
+
+[dependencies]
+salata-core = { path = "../salata-core" }
+
+[dev-dependencies]
+toml = "0.8"

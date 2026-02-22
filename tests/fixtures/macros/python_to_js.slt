@@ -1,0 +1,11 @@
+<python>
+users = [{"name": "Alice"}, {"name": "Bob"}]
+#set("users", users)
+#set("count", len(users))
+</python>
+<javascript>
+const users = #get("users");
+const count = #get("count");
+console.log("COUNT:" + count);
+console.log("FIRST:" + users[0].name);
+</javascript>

@@ -1,0 +1,4 @@
+<python>
+val = #get("nonexistent", "DEFAULT_VALUE")
+print(val)
+</python>

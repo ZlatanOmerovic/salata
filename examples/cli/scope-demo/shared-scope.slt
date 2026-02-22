@@ -1,0 +1,25 @@
+
+<!-- Shared Scope Demo
+     Both Python blocks run in the same process.
+     The second block can see variables from the first. -->
+
+<python>
+# First block: define variables
+message = "Hello from the first block"
+counter = 42
+items = ["apple", "banana", "cherry"]
+print(f"Block 1: Set message='{message}', counter={counter}")
+</python>
+
+Text between blocks — the Python process is still alive.
+
+<python>
+# Second block: access variables from the first block
+# These variables are available because shared_scope = true (default)
+print(f"Block 2: message='{message}'")
+print(f"Block 2: counter={counter}")
+print(f"Block 2: items={items}")
+
+counter += 1
+print(f"Block 2: incremented counter to {counter}")
+</python>

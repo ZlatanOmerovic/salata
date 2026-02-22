@@ -1,0 +1,5 @@
+#status 201
+#content-type text/html
+#header "X-Custom" "salata-test"
+#cookie "token" "xyz789"
+<p>All directives combined</p>

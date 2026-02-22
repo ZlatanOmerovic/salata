@@ -1,0 +1,29 @@
+<python>
+import csv
+import io
+
+data = """name,role,department
+Alice,Engineer,Backend
+Bob,Designer,Frontend
+Charlie,Manager,Operations
+Diana,Engineer,Frontend
+Eve,Analyst,Data"""
+
+reader = csv.DictReader(io.StringIO(data))
+rows = list(reader)
+headers = rows[0].keys()
+
+# Calculate column widths
+widths = {h: max(len(h), max(len(r[h]) for r in rows)) for h in headers}
+
+# Print header
+header_line = " | ".join(h.ljust(widths[h]) for h in headers)
+print(header_line)
+print("-+-".join("-" * widths[h] for h in headers))
+
+# Print rows
+for row in rows:
+    print(" | ".join(row[h].ljust(widths[h]) for h in headers))
+
+print(f"\nTotal: {len(rows)} records")
+</python>

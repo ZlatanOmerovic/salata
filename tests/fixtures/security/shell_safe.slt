@@ -1,0 +1,5 @@
+<shell>
+echo "SAFE_OUTPUT"
+printf "PRINTF_OK\n"
+date +%Y
+</shell>

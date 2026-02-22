@@ -1,0 +1,14 @@
+<python>
+# Same data, output as CSV
+products = [
+    {"name": "Laptop", "price": 999.99, "stock": 45},
+    {"name": "Mouse", "price": 29.99, "stock": 200},
+    {"name": "Keyboard", "price": 79.99, "stock": 120},
+    {"name": "Monitor", "price": 449.99, "stock": 30},
+]
+
+print("name,price,stock,status")
+for p in products:
+    status = "LOW" if p["stock"] < 50 else "OK"
+    print(f"{p['name']},{p['price']},{p['stock']},{status}")
+</python>

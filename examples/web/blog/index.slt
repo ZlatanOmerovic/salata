@@ -1,0 +1,49 @@
+#include "includes/header.slt"
+        <h2>Recent Posts</h2>
+        <python>
+import os
+
+# Read all post files from the posts/ directory
+posts_dir = os.path.join(os.path.dirname(__file__) if '__file__' in dir() else '.', 'posts')
+if not os.path.isdir(posts_dir):
+    posts_dir = './posts'
+
+posts = []
+for filename in sorted(os.listdir(posts_dir)):
+    if not filename.endswith('.txt'):
+        continue
+    filepath = os.path.join(posts_dir, filename)
+    with open(filepath, 'r') as f:
+        content = f.read()
+
+    # Parse simple header
+    header, body = content.split('---', 1)
+    meta = {}
+    for line in header.strip().split('\n'):
+        key, val = line.split(':', 1)
+        meta[key.strip()] = val.strip()
+
+    posts.append({
+        'title': meta.get('title', filename),
+        'date': meta.get('date', ''),
+        'body': body.strip(),
+        'slug': filename.replace('.txt', ''),
+    })
+
+# Sort by date descending
+posts.sort(key=lambda p: p['date'], reverse=True)
+
+#set("posts", posts)
+        </python>
+        <ruby>
+posts = #get("posts")
+
+posts.each do |post|
+    puts "<article>"
+    puts "  <h3>#{post['title']}</h3>"
+    puts "  <time>#{post['date']}</time>"
+    puts "  <p>#{post['body']}</p>"
+    puts "</article>"
+end
+        </ruby>
+#include "includes/footer.slt"

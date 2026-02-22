@@ -1,0 +1,22 @@
+#content-type application/json
+#status 200
+<python>
+import json
+from datetime import datetime
+
+response = {
+    "status": "ok",
+    "timestamp": datetime.now().isoformat(),
+    "data": {
+        "users": [
+            {"id": 1, "name": "Alice", "active": True},
+            {"id": 2, "name": "Bob", "active": True},
+            {"id": 3, "name": "Charlie", "active": False},
+        ],
+        "total": 3,
+        "active_count": 2,
+    }
+}
+
+print(json.dumps(response, indent=2))
+</python>

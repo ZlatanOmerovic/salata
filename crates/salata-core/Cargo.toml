@@ -1,0 +1,12 @@
+[package]
+name = "salata-core"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+toml = "0.8"
+thiserror = "2"
+tempfile = "3"
+
+[dev-dependencies]

@@ -1,0 +1,68 @@
+
+<!-- ============================================================
+     Cross-Runtime Pipeline Example
+
+     This demonstrates how data flows between different runtimes
+     using #set/#get macros. Salata acts as the data broker —
+     runtimes never talk to each other directly.
+
+     Flow: Python → Ruby → JavaScript
+     ============================================================ -->
+
+<!-- Step 1: Python generates raw data and stores it with #set -->
+<python>
+import json
+
+# Raw sales data
+sales = [
+    {"product": "Widget A", "region": "North", "amount": 1200},
+    {"product": "Widget B", "region": "South", "amount": 850},
+    {"product": "Widget A", "region": "South", "amount": 2100},
+    {"product": "Widget C", "region": "North", "amount": 675},
+    {"product": "Widget B", "region": "North", "amount": 1450},
+    {"product": "Widget C", "region": "South", "amount": 920},
+]
+
+# Store for the next runtime to pick up
+#set("raw_sales", sales)
+</python>
+
+<!-- Step 2: Ruby transforms the data — aggregates by product -->
+<ruby>
+sales = #get("raw_sales")
+
+# Aggregate totals per product
+totals = {}
+sales.each do |sale|
+  name = sale["product"]
+  totals[name] ||= 0
+  totals[name] += sale["amount"]
+end
+
+# Sort by total descending
+sorted = totals.sort_by { |_, v| -v }.map { |k, v| {"product" => k, "total" => v} }
+
+# Store aggregated data for the next runtime
+#set("product_totals", sorted)
+#set("grand_total", totals.values.sum)
+</ruby>
+
+<!-- Step 3: JavaScript formats and presents the final output -->
+<javascript>
+const totals = #get("product_totals");
+const grandTotal = #get("grand_total");
+
+println("=== Sales Summary Report ===");
+println("");
+
+totals.forEach((item, i) => {
+    const pct = ((item.total / grandTotal) * 100).toFixed(1);
+    const bar = "#".repeat(Math.round(pct / 2));
+    println(`  ${i + 1}. ${item.product.padEnd(10)} $${item.total.toString().padStart(6)}  ${pct}%  ${bar}`);
+});
+
+println("");
+println(`  Grand Total: $${grandTotal}`);
+println("");
+println("Pipeline: Python (generate) → Ruby (aggregate) → JavaScript (format)");
+</javascript>

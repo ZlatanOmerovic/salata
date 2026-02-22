@@ -1,0 +1,20 @@
+<python>
+# Same data, output as YAML
+products = [
+    {"name": "Laptop", "price": 999.99, "stock": 45},
+    {"name": "Mouse", "price": 29.99, "stock": 200},
+    {"name": "Keyboard", "price": 79.99, "stock": 120},
+    {"name": "Monitor", "price": 449.99, "stock": 30},
+]
+
+print("inventory:")
+print(f"  total_items: {sum(p['stock'] for p in products)}")
+print(f"  total_value: {sum(p['price'] * p['stock'] for p in products):.2f}")
+print("  products:")
+for p in products:
+    status = "low" if p["stock"] < 50 else "ok"
+    print(f"    - name: {p['name']}")
+    print(f"      price: {p['price']}")
+    print(f"      stock: {p['stock']}")
+    print(f"      status: {status}")
+</python>

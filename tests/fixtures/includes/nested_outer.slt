@@ -1,0 +1,3 @@
+<div>NESTED_OUTER_START</div>
+#include "nested_inner.slt"
+<div>NESTED_OUTER_END</div>

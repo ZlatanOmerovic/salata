@@ -1,0 +1,6 @@
+<javascript>
+var counter = 10;
+</javascript>
+<javascript>
+console.log(counter + 5);
+</javascript>

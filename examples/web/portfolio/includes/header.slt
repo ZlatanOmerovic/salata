@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Portfolio — Salata</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav>
+        <a href="/index.slt">Home</a>
+        <a href="/about.slt">About</a>
+        <a href="/contact.slt">Contact</a>
+    </nav>
+    <main>

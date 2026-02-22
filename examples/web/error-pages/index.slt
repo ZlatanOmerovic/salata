@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Error Pages Demo — Salata</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; color: #333; }
+        code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>Error Pages Demo</h1>
+    <p>This is a working page. Try visiting a non-existent URL to see the custom 404 page.</p>
+    <p>The config for this example points <code>page_404</code> and <code>page_500</code> to custom <code>.slt</code> error templates.</p>
+    <python>
+from datetime import datetime
+print(f"<p>Page generated at: {datetime.now().strftime('%H:%M:%S')}</p>")
+    </python>
+</body>
+</html>

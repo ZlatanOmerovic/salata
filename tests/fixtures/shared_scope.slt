@@ -1,0 +1,8 @@
+<python>
+x = 10
+print(x)
+</python>
+<p>middle</p>
+<python>
+print(x + 5)
+</python>

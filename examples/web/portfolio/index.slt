@@ -1,0 +1,17 @@
+#include "includes/header.slt"
+        <h1>My Projects</h1>
+        <python>
+projects = [
+    {"name": "Weather App", "tech": "Python, Flask", "desc": "Real-time weather dashboard"},
+    {"name": "Task Manager", "tech": "Ruby, Sinatra", "desc": "Kanban-style task tracker"},
+    {"name": "Chat Widget", "tech": "JavaScript, WebSocket", "desc": "Embeddable live chat"},
+]
+
+for p in projects:
+    print(f'<div class="project">')
+    print(f'  <h2>{p["name"]}</h2>')
+    print(f'  <p class="tech">{p["tech"]}</p>')
+    print(f'  <p>{p["desc"]}</p>')
+    print(f'</div>')
+        </python>
+#include "includes/footer.slt"

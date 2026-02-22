@@ -1,0 +1,24 @@
+<ruby>
+require 'json'
+
+data = JSON.parse('[
+  {"name": "Alice", "age": 30, "city": "New York"},
+  {"name": "Bob", "age": 25, "city": "London"},
+  {"name": "Charlie", "age": 35, "city": "Tokyo"},
+  {"name": "Diana", "age": 28, "city": "Paris"},
+  {"name": "Eve", "age": 32, "city": "Berlin"}
+]')
+
+# Filter: age >= 28, sort by name
+filtered = data
+  .select { |p| p["age"] >= 28 }
+  .sort_by { |p| p["name"] }
+
+puts "People aged 28 and older (sorted by name):"
+puts "=" * 40
+filtered.each do |person|
+  puts "  #{person['name']} (#{person['age']}) — #{person['city']}"
+end
+puts "=" * 40
+puts "#{filtered.length} of #{data.length} matched"
+</ruby>

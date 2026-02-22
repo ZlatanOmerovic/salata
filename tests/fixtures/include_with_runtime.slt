@@ -1,0 +1,3 @@
+<p>BEFORE_INCLUDE</p>
+#include "includes/with_runtime.slt"
+<p>AFTER_INCLUDE</p>

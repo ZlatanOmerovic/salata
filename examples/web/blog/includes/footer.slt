@@ -1,0 +1,9 @@
+    </main>
+    <footer>
+        <ruby>
+require 'date'
+puts "<p>Generated on #{Date.today.strftime('%B %d, %Y')} &mdash; Powered by Salata</p>"
+        </ruby>
+    </footer>
+</body>
+</html>

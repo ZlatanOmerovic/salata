@@ -1,0 +1,3 @@
+#include "includes/header.slt"
+<main>Page Content</main>
+#include "includes/footer.slt"

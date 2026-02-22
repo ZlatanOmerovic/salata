@@ -1,0 +1,4 @@
+title: Getting Started with Salata
+date: 2026-02-01
+---
+Salata is a polyglot templating engine that lets you mix Python, Ruby, JavaScript, TypeScript, PHP, and Shell in a single file. Each runtime block is executed server-side, and its stdout replaces the tag. Simple, powerful, and language-agnostic.

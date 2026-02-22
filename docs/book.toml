@@ -1,0 +1,10 @@
+[book]
+title = "Salata Documentation"
+authors = ["Zlatan Omerovic"]
+language = "en"
+src = "src"
+
+[output.html]
+site-url = "/salata/"
+git-repository-url = "https://github.com/nicholasgasior/salata"
+edit-url-template = "https://github.com/nicholasgasior/salata/edit/main/docs/{path}"

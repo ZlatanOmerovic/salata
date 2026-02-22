@@ -1,0 +1,3 @@
+<p>BEFORE</p>
+#include "includes/nested_outer.slt"
+<p>AFTER</p>

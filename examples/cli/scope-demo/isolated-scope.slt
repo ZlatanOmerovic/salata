@@ -1,0 +1,29 @@
+
+<!-- Isolated Scope Demo
+     Each Python block runs in its own process.
+     The second block CANNOT see variables from the first. -->
+
+<python scope="isolated">
+# First block (isolated): define variables
+message = "Hello from the first block"
+counter = 42
+print(f"Block 1: Set message='{message}', counter={counter}")
+</python>
+
+Text between blocks — each block gets a fresh Python process.
+
+<python scope="isolated">
+# Second block (isolated): try to access variables from block 1
+# This will fail because scope="isolated" means a new process
+try:
+    print(f"Block 2: message='{message}'")
+except NameError as e:
+    print(f"Block 2: Cannot access 'message' — {e}")
+
+try:
+    print(f"Block 2: counter={counter}")
+except NameError as e:
+    print(f"Block 2: Cannot access 'counter' — {e}")
+
+print("Block 2: Each isolated block starts fresh!")
+</python>

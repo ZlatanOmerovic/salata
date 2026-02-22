@@ -1,0 +1,4 @@
+title: Hello, World!
+date: 2026-01-15
+---
+Welcome to my blog, built with Salata! This is a simple example of how Salata can power a lightweight blog. Each post is a plain text file with a simple header format, read and rendered at request time by Python and Ruby.

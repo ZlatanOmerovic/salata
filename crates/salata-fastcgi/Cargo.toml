@@ -1,0 +1,11 @@
+[package]
+name = "salata-fastcgi"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "salata-fastcgi"
+path = "src/main.rs"
+
+[dependencies]
+salata-core = { path = "../salata-core" }

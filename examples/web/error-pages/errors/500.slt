@@ -1,0 +1,24 @@
+#status 500
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>500 — Server Error</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 80px 20px; color: #555; }
+        h1 { font-size: 4em; color: #e74c3c; margin-bottom: 10px; }
+        p { font-size: 1.2em; }
+        .timestamp { color: #aaa; font-size: 0.9em; margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <h1>500</h1>
+    <python>
+print("<p>Something went wrong on our end.</p>")
+print("<p>The error has been logged. Please try again later.</p>")
+    </python>
+    <shell>
+echo "<p class='timestamp'>Error logged at: $(date '+%Y-%m-%d %H:%M:%S')</p>"
+    </shell>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<javascript>
+#set("jsdata", {"x": 10, "y": 20});
+</javascript>
+<python>
+data = #get("jsdata")
+print(f"X:{data['x']},Y:{data['y']}")
+</python>

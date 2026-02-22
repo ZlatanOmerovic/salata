@@ -1,0 +1,6 @@
+#include "header_partial.slt"
+<main>
+<python>
+print("included page content")
+</python>
+</main>

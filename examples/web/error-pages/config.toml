@@ -1,0 +1,38 @@
+[salata]
+display_errors = true
+default_content_type = "text/html; charset=utf-8"
+encoding = "utf-8"
+
+[server]
+hot_reload = true
+
+[logging]
+directory = "./logs"
+
+[runtimes.python]
+enabled = true
+path = "/usr/bin/python3"
+shared_scope = true
+
+[runtimes.ruby]
+enabled = false
+
+[runtimes.javascript]
+enabled = false
+
+[runtimes.typescript]
+enabled = false
+
+[runtimes.php]
+enabled = false
+cli_path = "/usr/bin/php"
+cgi_path = "/usr/bin/php-cgi"
+
+[runtimes.shell]
+enabled = true
+path = "/bin/bash"
+shared_scope = true
+
+[errors]
+page_404 = "./errors/404.slt"
+page_500 = "./errors/500.slt"
